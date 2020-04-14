@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+var expressvalidator=require('express-validator');
+var expresssession=require('express-session');
 
 var routes = require('./routes');
 
@@ -23,8 +25,10 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressvalidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expresssession({secret:'max',saveUninitialized:false,resave:false})) ;
 
 app.use('/', routes);
 
